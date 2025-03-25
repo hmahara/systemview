@@ -3,7 +3,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Hello {name}</title>
+    <meta http-equiv="refresh" content="15">
+    <title>Process and software list</title>
     <style>
         body {
             background-color: #000;
@@ -17,6 +18,15 @@
         h1 b {
             color: #be9100;
         }
+        
+        h4 {
+            color: #4695EB;
+            font-size: 1vw;
+        }
+
+        h4 b {
+            color: #be9100;
+        }
 
         p {
             font-size: 2vw;
@@ -24,8 +34,18 @@
     </style>
 </head>
 <body>
-<h1>Hello <b>{name}</b></h1>
-
-<p>Create your Web page using Quarkus & Qute</p>
+<h4>{now}</h4>
+   <h5>Process</h5>
+    <pre>
+      {process}
+    </pre>
+    
+    <hr/>
+    
+    <h5>Software List</h5>
+   
+    <pre>
+      {software}
+    </pre>
 </body>
 </html>
