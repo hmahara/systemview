@@ -65,7 +65,7 @@ public class OperatingSystemUtility {
             	for (String a : ss) {
             		Matcher m = p.matcher(a);
             		if (m.find()) {
-                    	Log.info("Match");
+                    	//Log.info("Match");
                     	sb.append(a).append(System.lineSeparator());
                     } 
             	}
@@ -74,12 +74,11 @@ public class OperatingSystemUtility {
             }
             return sb.toString();
         } catch (ExecuteException e) {
-            System.err.println("Execution failed.");
-            e.printStackTrace();
+            Log.error("Execution failed." + e.getMessage());
+            
         } catch (IOException e) {
-            System.err.println("permission denied.");
-            e.printStackTrace();
+            Log.error("permission denied."+ e.getMessage());
         }
-        return "return value of command: "+ sCommandString;
+        return "Cannot execute command: "+ sCommandString;
     }
 }
