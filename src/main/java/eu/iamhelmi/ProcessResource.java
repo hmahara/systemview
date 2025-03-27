@@ -18,7 +18,7 @@ public class ProcessResource {
 	
 	@GET
     @Produces(MediaType.TEXT_HTML)
-    public TemplateInstance get(@QueryParam("name") String name, @QueryParam("app") String app) {
+    public TemplateInstance get(@QueryParam("name") String name, @QueryParam("app") String app, @QueryParam("folder") String folder) {
 		//System.out.println("resource process object: "+process);
 		String searchOrNot = "";
 		if (app!=null && app.length()>0) {
@@ -27,6 +27,10 @@ public class ProcessResource {
         return process.data("now", java.time.LocalDateTime.now())
         		.data("process", OperatingSystemUtility.showProcessGrep(name))
         		.data("software", OperatingSystemUtility.runScript("apt list "+searchOrNot))
+        		.data("name", name)
+        		.data("app",app)
+        		.data("folder", folder)
+        		.data("list", OperatingSystemUtility.listOfFile(folder))
         		//.data("software", "disabled")
         		;  
     }

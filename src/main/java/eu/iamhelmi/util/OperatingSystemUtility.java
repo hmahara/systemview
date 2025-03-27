@@ -1,7 +1,10 @@
 package eu.iamhelmi.util;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -81,4 +84,38 @@ public class OperatingSystemUtility {
         }
         return "Cannot execute command: "+ sCommandString;
     }
+	
+	public static String listOfFile(String folder){
+		StringBuffer sb = new StringBuffer();
+		if (folder == null || folder.length()<0) {
+			sb.append("* no folder to list the files")
+			.append(System.lineSeparator())
+			;
+			return sb.toString();
+		}
+		
+		File check = new File(folder);
+		if (check == null) {
+			sb.append("* Invalid or non-existing folder: "+folder)
+			.append(System.lineSeparator())
+			;
+			return sb.toString();
+		}
+		File[] files = check.listFiles();
+		//If this pathname does not denote a directory, then listFiles() returns null. 
+		Log.info("Number files in the folder: "+files.length);
+		
+		for (File file : files) {
+		    if (file.isFile()) {
+		    	Date d = new Date(file.lastModified());
+		    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		        sb.append(" "+sdf.format(d)+"  ").append(file.getName())
+		        .append(System.lineSeparator())
+		        ;
+		    }
+		}
+		
+		return sb.toString();
+		
+	}
 }
