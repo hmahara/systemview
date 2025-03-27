@@ -18,11 +18,16 @@ public class ProcessResource {
 	
 	@GET
     @Produces(MediaType.TEXT_HTML)
-    public TemplateInstance get(@QueryParam("name") String name) {
-		System.out.println("resource process object: "+process);
+    public TemplateInstance get(@QueryParam("name") String name, @QueryParam("app") String app) {
+		//System.out.println("resource process object: "+process);
+		String searchOrNot = "";
+		if (app!=null && app.length()>0) {
+			searchOrNot = "*"+app+"*";
+		}
         return process.data("now", java.time.LocalDateTime.now())
-        		.data("process", OperatingSystemUtility.runScript("ps -ef"))
-        		.data("software", OperatingSystemUtility.runScript("apt list *google*"))
+        		.data("process", OperatingSystemUtility.showProcessGrep(name))
+        		.data("software", OperatingSystemUtility.runScript("apt list "+searchOrNot))
+        		//.data("software", "disabled")
         		;  
     }
 	

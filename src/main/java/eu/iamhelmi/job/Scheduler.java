@@ -18,7 +18,7 @@ public class Scheduler {
 	@Location("process.html")
 	Template process;
 
-	@Scheduled(every="10h")     
+	//@Scheduled(every="10h")     
     void increment() {
         Log.info("scheduler is running");
         //ws.broadcast("clean");
