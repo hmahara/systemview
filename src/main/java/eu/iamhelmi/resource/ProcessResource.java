@@ -1,4 +1,4 @@
-package eu.iamhelmi;
+package eu.iamhelmi.resource;
 
 import eu.iamhelmi.util.OperatingSystemUtility;
 import io.quarkus.qute.Template;

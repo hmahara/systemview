@@ -23,10 +23,7 @@ public class OperatingSystemUtility {
         sCommandString = command;
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         CommandLine oCmdLine = CommandLine.parse(sCommandString);
-        //oCmdLine.addArgument(" -ef ");
-        //oCmdLine.addArgument(" | ");
-        //oCmdLine.addArgument(" grep ");
-        //oCmdLine.addArgument(" java ");
+
         DefaultExecutor oDefaultExecutor = DefaultExecutor.builder().get();//new DefaultExecutor();
         oDefaultExecutor.setExitValue(0);
         PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream);
@@ -64,6 +61,48 @@ public class OperatingSystemUtility {
             String[] ss = s.split(System.lineSeparator());
             StringBuffer sb = new StringBuffer();
             Pattern p = Pattern.compile(grep);
+            if (ss != null) {
+            	for (String a : ss) {
+            		Matcher m = p.matcher(a);
+            		if (m.find()) {
+                    	//Log.info("Match");
+                    	sb.append(a).append(System.lineSeparator());
+                    } 
+            	}
+            
+
+            }
+            return sb.toString();
+        } catch (ExecuteException e) {
+            Log.error("Execution failed." + e.getMessage());
+            
+        } catch (IOException e) {
+            Log.error("permission denied."+ e.getMessage());
+        }
+        return "Cannot execute command: "+ sCommandString;
+    }
+	
+	public static String getDebianSoftareInstalled(String softwarePattern){
+		int iExitValue = 0;
+		String grepWord1 = "now";
+		String sCommandString = "apt list \"*"+softwarePattern+"*\"";
+        
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        CommandLine oCmdLine = CommandLine.parse(sCommandString);
+
+        DefaultExecutor oDefaultExecutor = DefaultExecutor.builder().get();//new DefaultExecutor();
+        oDefaultExecutor.setExitValue(0);
+        PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream);
+        try {
+        	oDefaultExecutor.setStreamHandler(streamHandler);
+            iExitValue = oDefaultExecutor.execute(oCmdLine);
+            String s = outputStream.toString();
+            if (grepWord1 == null || grepWord1.length()<1) {
+            	return s;
+            }
+            String[] ss = s.split(System.lineSeparator());
+            StringBuffer sb = new StringBuffer();
+            Pattern p = Pattern.compile(grepWord1);
             if (ss != null) {
             	for (String a : ss) {
             		Matcher m = p.matcher(a);
