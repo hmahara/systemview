@@ -10,11 +10,11 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 
-@Path("/api/v1/unit")
-public class InfoResource {
+@Path("/api/v1/interservice")
+public class InterserviceResource {
 
-	
-	@GET
+	@Path("/version")
+	@GET 
     @Produces(MediaType.APPLICATION_JSON)
     public String get(@QueryParam("name") String name, @QueryParam("app") String app, @QueryParam("folder") String folder) {
 		//System.out.println("resource process object: "+process);
@@ -22,8 +22,8 @@ public class InfoResource {
 		if (app!=null && app.length()>0) {
 			searchOrNot = "*"+app+"*";
 		}
-		return OperatingSystemUtility.getDebianSoftareInstalled("google");
-        //return "{\"a\": \"b\"}";  
+		//return OperatingSystemUtility.getDebianSoftareInstalled("google");
+        return "{\"version\": \"2.0.14\"}";  
     }
 	
 }
