@@ -86,13 +86,15 @@
     </style>
 </head>
 <body>
-<h3>Some built in functions</h3>
+<a href="/"><button>Index</button></a>
 
-   <form method="POST" name="commandLineForm" action="/commandline/execute" enctype="multipart/form-data">
+<h3>Rest client</h3>
+
+   <form >
    
    	
-        <label for="commandline">Command Line: </label><br /><input type="text" placeholder="ls" name="commandline" id="commandline"
-            required /> <br />
+        <label for="commandline">URL: </label><input type="text" placeholder="https://www.google.com" name="url" id="url"
+            required />
     	
     	<button type="submit" class="btn btn-primary"> Execute </button>
 

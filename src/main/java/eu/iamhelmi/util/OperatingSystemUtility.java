@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.ExecuteException;
+import org.apache.commons.exec.LogOutputStream;
 import org.apache.commons.exec.PumpStreamHandler;
 
 import io.quarkus.logging.Log;
@@ -23,22 +24,35 @@ public class OperatingSystemUtility {
         sCommandString = command;
         Log.info("Executing command line on OS: "+sCommandString);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        StringBuffer sb = new StringBuffer();
+        LogOutputStream outputS = new LogOutputStream() {
+			
+			@Override
+			protected void processLine(String line, int logLevel) {
+				Log.info(line);
+				sb.append(line).append(System.lineSeparator());
+			}
+		};
+        
         CommandLine oCmdLine = CommandLine.parse(sCommandString);
 
         DefaultExecutor oDefaultExecutor = DefaultExecutor.builder().get();//new DefaultExecutor();
         oDefaultExecutor.setExitValue(0);
-        PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream);
+        //PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream);
+        PumpStreamHandler streamHandler = new PumpStreamHandler(outputS);
         try {
         	oDefaultExecutor.setStreamHandler(streamHandler);
+        	
             iExitValue = oDefaultExecutor.execute(oCmdLine);
-            return outputStream.toString();
+            return sb.toString();
+            //return outputStream.toString();
         } catch (ExecuteException e) {
             System.err.println("Execution failed.");
             e.printStackTrace();
         } catch (IOException e) {
             System.err.println("permission denied.");
             e.printStackTrace();
-        }
+        } 
         return "return value of command: "+ sCommandString;
     }
 	

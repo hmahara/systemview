@@ -56,9 +56,16 @@
 		    <artifactId>quarkus-scheduler</artifactId>
 		</dependency>
 		<dependency>
-    <groupId>io.quarkus</groupId>
-    <artifactId>quarkus-rest</artifactId>
-</dependency>
+		    <groupId>io.quarkus</groupId>
+		    <artifactId>quarkus-rest</artifactId>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.jboss.resteasy</groupId>
+		    <artifactId>resteasy-client</artifactId>
+		    <version>6.2.10.Final</version>
+		</dependency>
+
 		<dependency>
 		  <groupId>org.apache.commons</groupId>
 		  <artifactId>commons-exec</artifactId>
