@@ -21,6 +21,7 @@ public class OperatingSystemUtility {
 		int iExitValue = 0;
 		String sCommandString = "";
         sCommandString = command;
+        Log.info("Executing command line on OS: "+sCommandString);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         CommandLine oCmdLine = CommandLine.parse(sCommandString);
 
